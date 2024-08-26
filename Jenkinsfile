@@ -17,13 +17,13 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Test Stage Complete",
-                    body: "Test stage complete, Testing passed successfully. All tests passed"
-                    // Update SMTP settings with actual server
-                    bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Test Stage Complete with Logs' -Body 'Test stage complete, Testing passed successfully. All tests passed' -Attachments 'test.log'"
-                    '''
+                    emailext (
+                        subject: "Test Stage Complete",
+                        body: "Test stage complete, Testing passed successfully. All tests passed",
+                        to: "lachlanmcdonald2000@gmail.com",
+                        attachLog: true,
+                        attachmentsPattern: 'test.log'
+                    )
                 }
             }
         }
@@ -40,13 +40,13 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Security Scan Complete",
-                    body: "Security stage complete, security scan passed successfully. No issues found"
-                    // Update SMTP settings with actual server
-                    bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Security Scan Complete with Logs' -Body 'Security stage complete, security scan passed successfully. No issues found' -Attachments 'security.log'"
-                    '''
+                    emailext (
+                        subject: "Security Scan Complete",
+                        body: "Security stage complete, security scan passed successfully. No issues found",
+                        to: "lachlanmcdonald2000@gmail.com",
+                        attachLog: true,
+                        attachmentsPattern: 'security.log'
+                    )
                 }
             }
         }
