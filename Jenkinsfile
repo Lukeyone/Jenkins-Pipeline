@@ -20,9 +20,9 @@ pipeline {
                     mail to: "lachlanmcdonald2000@gmail.com",
                     subject: "Test Stage Complete",
                     body: "Test stage complete, Testing passed successfully. All tests passed"
-                    // Use a batch script to send the email with attachments
+                    // Update SMTP settings with actual server
                     bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'jenkins@example.com' -Subject 'Test Stage Complete with Logs' -Body 'Test stage complete, Testing passed successfully. All tests passed' -Attachments 'test.log' -SmtpServer 'smtp.example.com'"
+                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Test Stage Complete with Logs' -Body 'Test stage complete, Testing passed successfully. All tests passed' -Attachments 'test.log' -SmtpServer 'your.smtp.server.com' -Credential (Get-Credential)"
                     '''
                 }
             }
@@ -43,9 +43,9 @@ pipeline {
                     mail to: "lachlanmcdonald2000@gmail.com",
                     subject: "Security Scan Complete",
                     body: "Security stage complete, security scan passed successfully. No issues found"
-                    // Use a batch script to send the email with attachments
+                    // Update SMTP settings with actual server
                     bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'jenkins@example.com' -Subject 'Security Scan Complete with Logs' -Body 'Security stage complete, security scan passed successfully. No issues found' -Attachments 'security.log' -SmtpServer 'smtp.example.com'"
+                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Security Scan Complete with Logs' -Body 'Security stage complete, security scan passed successfully. No issues found' -Attachments 'security.log' -SmtpServer 'your.smtp.server.com' -Credential (Get-Credential)"
                     '''
                 }
             }
