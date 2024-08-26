@@ -17,12 +17,9 @@ pipeline {
             }
             post {
                 success {
-                    script {
-                        def logContent = readFile('test.log')
-                        mail to: "lachlanmcdonald2000@gmail.com",
-                             subject: "Test Stage Complete",
-                             body: "Test stage complete, Testing passed successfully. All tests passed. \n\nLog Content:\n${logContent}"
-                    }
+                    bat '''
+                    blat test.log -to lachlanmcdonald2000@gmail.com -subject "Test Stage Complete" -body "Test stage complete, Testing passed successfully. All tests passed." -server smtp.yourserver.com -f lachlanmcdonald2000@gmail.com
+                    '''
                 }
             }
         }
@@ -39,12 +36,9 @@ pipeline {
             }
             post {
                 success {
-                    script {
-                        def logContent = readFile('security.log')
-                        mail to: "lachlanmcdonald2000@gmail.com",
-                             subject: "Security Scan Complete",
-                             body: "Security stage complete, security scan passed successfully. No issues found. \n\nLog Content:\n${logContent}"
-                    }
+                    bat '''
+                    blat security.log -to lachlanmcdonald2000@gmail.com -subject "Security Scan Complete" -body "Security stage complete, security scan passed successfully. No issues found." -server smtp.yourserver.com -f lachlanmcdonald2000@gmail.com
+                    '''
                 }
             }
         }
