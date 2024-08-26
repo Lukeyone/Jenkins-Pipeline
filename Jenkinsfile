@@ -17,11 +17,13 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Test Stage Complete",
-                    body: "Test stage complete, Testing passed successfully. All tests passed",
-                    attachLog: true,
-                    attachmentsPattern: 'test.log'
+                    emailext (
+                        subject: "Test Stage Complete",
+                        body: "Test stage complete, Testing passed successfully. All tests passed",
+                        to: "lachlanmcdonald2000@gmail.com",
+                        attachLog: true,
+                        attachmentsPattern: 'test.log'
+                    )
                 }
             }
         }
@@ -38,11 +40,13 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Security Scan Complete",
-                    body: "Security stage complete, security scan passed successfully. No issues found",
-                    attachLog: true,
-                    attachmentsPattern: 'security.log'
+                    emailext (
+                        subject: "Security Scan Complete",
+                        body: "Security stage complete, security scan passed successfully. No issues found",
+                        to: "lachlanmcdonald2000@gmail.com",
+                        attachLog: true,
+                        attachmentsPattern: 'security.log'
+                    )
                 }
             }
         }
