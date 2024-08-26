@@ -13,9 +13,13 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Test Email",
-                    body: "Test stage complete, Testing passed successfully. All tests passed"
+                    archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
+                    emailext(
+                        to: "lachlanmcdonald2000@gmail.com",
+                        subject: "Test Stage Complete",
+                        body: "Test stage complete, Testing passed successfully. All tests passed",
+                        attachLog: true
+                    )
                 }
             }
         }
@@ -30,9 +34,13 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Security Scan Email",
-                    body: "Security Stage stage complete, security scan passed successfully. No issues found"
+                    archiveArtifacts artifacts: '**/security-scan/*.log', allowEmptyArchive: true
+                    emailext(
+                        to: "lachlanmcdonald2000@gmail.com",
+                        subject: "Security Scan Complete",
+                        body: "Security Stage complete, security scan passed successfully. No issues found",
+                        attachLog: true
+                    )
                 }
             }
         }
