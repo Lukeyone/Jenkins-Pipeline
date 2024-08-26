@@ -15,7 +15,7 @@ pipeline {
                 success {
                     mail to: "lachlanmcdonald2000@gmail.com",
                     subject: "Test Email",
-                    body: "Test stage complete"
+                    body: "Test stage complete, Testing passed successfully"
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
                 success {
                     mail to: "lachlanmcdonald2000@gmail.com",
                     subject: "Security Scan Email",
-                    body: "Security Stage stage complete"
+                    body: "Security Stage stage complete, security scan passed successfully"
                 }
             }
         }
