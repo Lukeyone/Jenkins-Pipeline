@@ -6,8 +6,8 @@ pipeline {
                 script {
                     def buildLog = 'build.log'
                     writeFile(file: buildLog, text: '')
-                    echo "Github Commit Received. Building in Process" | tee -a ${buildLog}
-                    echo "building code with Java maven. The reason for this is because of increased performance and project code building" | tee -a ${buildLog}
+                    sh "echo 'Github Commit Received. Building in Process' >> ${buildLog}"
+                    sh "echo 'building code with Java maven. The reason for this is because of increased performance and project code building' >> ${buildLog}"
                     archiveArtifacts artifacts: buildLog, allowEmptyArchive: true
                 }
             }
@@ -17,7 +17,7 @@ pipeline {
                 script {
                     def testLog = 'test.log'
                     writeFile(file: testLog, text: '')
-                    echo "in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here" | tee -a ${testLog}
+                    sh "echo 'in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here' >> ${testLog}"
                 }
             }
             post {
@@ -37,7 +37,7 @@ pipeline {
                 script {
                     def analysisLog = 'analysis.log'
                     writeFile(file: analysisLog, text: '')
-                    echo "in the coding analysis stage I am using SonarQube. The reason for this is because it can perform static coding analysis to discover any potential vulnerabilities" | tee -a ${analysisLog}
+                    sh "echo 'in the coding analysis stage I am using SonarQube. The reason for this is because it can perform static coding analysis to discover any potential vulnerabilities' >> ${analysisLog}"
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
                 script {
                     def securityLog = 'security.log'
                     writeFile(file: securityLog, text: '')
-                    echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent" | tee -a ${securityLog}
+                    sh "echo 'In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent' >> ${securityLog}"
                 }
             }
             post {
