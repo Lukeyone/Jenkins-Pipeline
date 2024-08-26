@@ -3,43 +3,60 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Github Commit Received. Building in Process"
-                echo "building code with Java maven. The reason for this is because of increased performance and project code building"
+                script {
+                    def buildLog = 'build.log'
+                    writeFile(file: buildLog, text: '')
+                    echo "Github Commit Received. Building in Process" | tee -a ${buildLog}
+                    echo "building code with Java maven. The reason for this is because of increased performance and project code building" | tee -a ${buildLog}
+                    archiveArtifacts artifacts: buildLog, allowEmptyArchive: true
+                }
             }
         }
         stage('Test') {
             steps {
-                echo "in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
+                script {
+                    def testLog = 'test.log'
+                    writeFile(file: testLog, text: '')
+                    echo "in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here" | tee -a ${testLog}
+                }
             }
             post {
                 success {
-                    archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'test.log', allowEmptyArchive: true
                     emailext(
                         to: "lachlanmcdonald2000@gmail.com",
                         subject: "Test Stage Complete",
                         body: "Test stage complete, Testing passed successfully. All tests passed",
-                        attachLog: true
+                        attachmentsPattern: 'test.log'
                     )
                 }
             }
         }
         stage('Code Analysis') {
             steps {
-                echo "in the coding analysis stage I am using SonarQube. The reason for this is because it can perform static coding analysis to discover any potential vulnerabilities"
+                script {
+                    def analysisLog = 'analysis.log'
+                    writeFile(file: analysisLog, text: '')
+                    echo "in the coding analysis stage I am using SonarQube. The reason for this is because it can perform static coding analysis to discover any potential vulnerabilities" | tee -a ${analysisLog}
+                }
             }
         }
         stage('Security Scan') {
             steps {
-                echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent"
+                script {
+                    def securityLog = 'security.log'
+                    writeFile(file: securityLog, text: '')
+                    echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent" | tee -a ${securityLog}
+                }
             }
             post {
                 success {
-                    archiveArtifacts artifacts: '**/security-scan/*.log', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'security.log', allowEmptyArchive: true
                     emailext(
                         to: "lachlanmcdonald2000@gmail.com",
                         subject: "Security Scan Complete",
                         body: "Security Stage complete, security scan passed successfully. No issues found",
-                        attachLog: true
+                        attachmentsPattern: 'security.log'
                     )
                 }
             }
