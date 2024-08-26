@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo "in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected"
+                echo "in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
             }
             post {
                 success {
@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Security Scan') {
             steps {
-                echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies"
+                echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent"
             }
             post {
                 success {
