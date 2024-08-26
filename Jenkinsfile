@@ -4,52 +4,63 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Github Commit Received. Building in Process"
-                echo "building code with Java maven. The reason for this is because of increased performance and project code building"
+                echo "Building code with Java Maven. The reason for this is because of increased performance and project code building"
+                bat 'echo Build log content > build.log'
+                archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true
             }
         }
         stage('Test') {
             steps {
-                echo "in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
+                echo "In the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
+                bat 'echo Test log content > test.log'
+                archiveArtifacts artifacts: 'test.log', allowEmptyArchive: true
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Test Email",
-                    body: "Test stage complete, Testing passed successfully. All tests passed"
+                    emailext
+                        to: "lachlanmcdonald2000@gmail.com",
+                        subject: "Test Stage Complete",
+                        body: "Test stage complete, Testing passed successfully. All tests passed",
+                        attachmentsPattern: '**/test.log', // Matches any test.log file in any directory
+                        attachLog: true
                 }
             }
         }
         stage('Code Analysis') {
             steps {
-                echo "in the coding analysis stage I am using SonarQube. The reason for this is because it can perform static coding analysis to discover any potential vulnerabilities"
+                echo "In the coding analysis stage, I am using SonarQube. The reason for this is because it can perform static coding analysis to discover any potential vulnerabilities"
             }
         }
         stage('Security Scan') {
             steps {
                 echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent"
+                bat 'echo Security scan log content > security.log'
+                archiveArtifacts artifacts: 'security.log', allowEmptyArchive: true
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Security Scan Email",
-                    body: "Security Stage stage complete, security scan passed successfully. No issues found"
+                    emailext to: "lachlanmcdonald2000@gmail.com",
+                        subject: "Security Scan Complete",
+                        body: "Security stage complete, security scan passed successfully. No issues found",
+                        attachmentsPattern: '**/security.log', // Matches any security.log file in any directory
+                        attachLog: true
                 }
             }
         }
         stage('Deploy to Staging') {
             steps {
-                echo "deploy to staging environment requires no tools for this process"
+                echo "Deploy to staging environment requires no tools for this process"
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                echo "for the integration testing stage, we write test cases to ensure different components of the application are working together correctly"
+                echo "For the integration testing stage, we write test cases to ensure different components of the application are working together correctly"
             }
         }
         stage('Deploy to Production') {
             steps {
-                echo "if everything is successful up to this point, we deploy the code to production"
+                echo "If everything is successful up to this point, we deploy the code to production"
             }
         }
     }
-} I want logs as attachments for the emails
+}
