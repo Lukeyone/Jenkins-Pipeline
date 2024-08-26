@@ -17,12 +17,13 @@ pipeline {
             }
             post {
                 success {
-                    emailext(
-                        to: "lachlanmcdonald2000@gmail.com",
-                        subject: "Test Stage Complete",
-                        body: "Test stage complete, Testing passed successfully. All tests passed",
-                        attachmentsPattern: 'test.log'
-                    )
+                    mail to: "lachlanmcdonald2000@gmail.com",
+                    subject: "Test Stage Complete",
+                    body: "Test stage complete, Testing passed successfully. All tests passed"
+                    // Use a batch script to send the email with attachments
+                    bat '''
+                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'jenkins@example.com' -Subject 'Test Stage Complete with Logs' -Body 'Test stage complete, Testing passed successfully. All tests passed' -Attachments 'test.log' -SmtpServer 'smtp.example.com'"
+                    '''
                 }
             }
         }
@@ -39,12 +40,13 @@ pipeline {
             }
             post {
                 success {
-                    emailext(
-                        to: "lachlanmcdonald2000@gmail.com",
-                        subject: "Security Scan Complete",
-                        body: "Security stage complete, security scan passed successfully. No issues found",
-                        attachmentsPattern: 'security.log'
-                    )
+                    mail to: "lachlanmcdonald2000@gmail.com",
+                    subject: "Security Scan Complete",
+                    body: "Security stage complete, security scan passed successfully. No issues found"
+                    // Use a batch script to send the email with attachments
+                    bat '''
+                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'jenkins@example.com' -Subject 'Security Scan Complete with Logs' -Body 'Security stage complete, security scan passed successfully. No issues found' -Attachments 'security.log' -SmtpServer 'smtp.example.com'"
+                    '''
                 }
             }
         }
