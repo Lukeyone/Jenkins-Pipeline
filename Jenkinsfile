@@ -5,14 +5,14 @@ pipeline {
             steps {
                 echo "Github Commit Received. Building in Process"
                 echo "Building code with Java Maven. The reason for this is because of increased performance and project code building"
-                sh 'echo "Build log content" > build.log'
+                bat 'echo Build log content > build.log'
                 archiveArtifacts artifacts: 'build.log', allowEmptyArchive: true
             }
         }
         stage('Test') {
             steps {
                 echo "In the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
-                sh 'echo "Test log content" > test.log'
+                bat 'echo Test log content > test.log'
                 archiveArtifacts artifacts: 'test.log', allowEmptyArchive: true
             }
             post {
@@ -34,7 +34,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent"
-                sh 'echo "Security scan log content" > security.log'
+                bat 'echo Security scan log content > security.log'
                 archiveArtifacts artifacts: 'security.log', allowEmptyArchive: true
             }
             post {
