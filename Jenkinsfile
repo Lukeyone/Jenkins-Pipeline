@@ -17,15 +17,11 @@ pipeline {
             }
             post {
                 success {
-                    // Send email using mail step for simpler email without attachment
                     mail to: "lachlanmcdonald2000@gmail.com",
-                         subject: "Test Stage Complete",
-                         body: "Test stage complete, Testing passed successfully. All tests passed"
-                         
-                    // Use PowerShell to send email with attachment
-                    bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Test Stage Complete with Logs' -Body 'Test stage complete, Testing passed successfully. All tests passed' -Attachments 'test.log' -SmtpServer 'smtp.yourserver.com' -Credential (Get-Credential)"
-                    '''
+                    subject: "Test Stage Complete",
+                    body: "Test stage complete, Testing passed successfully. All tests passed",
+                    attachLog: true,
+                    attachmentsPattern: 'test.log'
                 }
             }
         }
@@ -42,15 +38,11 @@ pipeline {
             }
             post {
                 success {
-                    // Send email using mail step for simpler email without attachment
                     mail to: "lachlanmcdonald2000@gmail.com",
-                         subject: "Security Scan Complete",
-                         body: "Security stage complete, security scan passed successfully. No issues found"
-                         
-                    // Use PowerShell to send email with attachment
-                    bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Security Scan Complete with Logs' -Body 'Security stage complete, security scan passed successfully. No issues found' -Attachments 'security.log' -SmtpServer 'smtp.yourserver.com' -Credential (Get-Credential)"
-                    '''
+                    subject: "Security Scan Complete",
+                    body: "Security stage complete, security scan passed successfully. No issues found",
+                    attachLog: true,
+                    attachmentsPattern: 'security.log'
                 }
             }
         }
