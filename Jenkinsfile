@@ -1,11 +1,5 @@
 pipeline {
     agent any
-    environment {
-        DIRECTORY_PATH = "${env.WORKSPACE}"
-        TESTING_ENVIRONMENT = "Testing Environment"
-        PRODUCTION_ENVIRONMENT = "Lachlan Joshua McDonald"
-    }
-
     stages {
         stage('Build') {
             steps {
