@@ -17,12 +17,14 @@ pipeline {
             }
             post {
                 success {
-                    emailext
+                    emailext (
                         to: "lachlanmcdonald2000@gmail.com",
                         subject: "Test Stage Complete",
                         body: "Test stage complete, Testing passed successfully. All tests passed",
-                        attachmentsPattern: '**/test.log', // Matches any test.log file in any directory
-                        attachLog: true
+                        attachmentsPattern: '**/test.log',
+                        attachLog: true,
+                        recipientProviders: [developers(), requestor()] // Dynamically adds recipients
+                    )
                 }
             }
         }
@@ -39,11 +41,14 @@ pipeline {
             }
             post {
                 success {
-                    emailext to: "lachlanmcdonald2000@gmail.com",
+                    emailext (
+                        to: "lachlanmcdonald2000@gmail.com",
                         subject: "Security Scan Complete",
                         body: "Security stage complete, security scan passed successfully. No issues found",
-                        attachmentsPattern: '**/security.log', // Matches any security.log file in any directory
-                        attachLog: true
+                        attachmentsPattern: '**/security.log',
+                        attachLog: true,
+                        recipientProviders: [culprits(), requestor()] // Adds culprits and requestor to email
+                    )
                 }
             }
         }
