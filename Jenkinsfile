@@ -17,13 +17,12 @@ pipeline {
             }
             post {
                 success {
-                    emailext (
-                        subject: "Test Stage Complete",
-                        body: "Test stage complete, Testing passed successfully. All tests passed",
-                        to: "lachlanmcdonald2000@gmail.com",
-                        attachLog: true,
-                        attachmentsPattern: 'test.log'
-                    )
+                    script {
+                        def logContent = readFile('test.log')
+                        mail to: "lachlanmcdonald2000@gmail.com",
+                             subject: "Test Stage Complete",
+                             body: "Test stage complete, Testing passed successfully. All tests passed. \n\nLog Content:\n${logContent}"
+                    }
                 }
             }
         }
@@ -40,13 +39,12 @@ pipeline {
             }
             post {
                 success {
-                    emailext (
-                        subject: "Security Scan Complete",
-                        body: "Security stage complete, security scan passed successfully. No issues found",
-                        to: "lachlanmcdonald2000@gmail.com",
-                        attachLog: true,
-                        attachmentsPattern: 'security.log'
-                    )
+                    script {
+                        def logContent = readFile('security.log')
+                        mail to: "lachlanmcdonald2000@gmail.com",
+                             subject: "Security Scan Complete",
+                             body: "Security stage complete, security scan passed successfully. No issues found. \n\nLog Content:\n${logContent}"
+                    }
                 }
             }
         }
