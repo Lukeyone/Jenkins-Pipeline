@@ -22,7 +22,7 @@ pipeline {
                     body: "Test stage complete, Testing passed successfully. All tests passed"
                     // Update SMTP settings with actual server
                     bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Test Stage Complete with Logs' -Body 'Test stage complete, Testing passed successfully. All tests passed' -Attachments 'test.log' -SmtpServer 'your.smtp.server.com' -Credential (Get-Credential)"
+                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Test Stage Complete with Logs' -Body 'Test stage complete, Testing passed successfully. All tests passed' -Attachments 'test.log'"
                     '''
                 }
             }
@@ -45,7 +45,7 @@ pipeline {
                     body: "Security stage complete, security scan passed successfully. No issues found"
                     // Update SMTP settings with actual server
                     bat '''
-                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Security Scan Complete with Logs' -Body 'Security stage complete, security scan passed successfully. No issues found' -Attachments 'security.log' -SmtpServer 'your.smtp.server.com' -Credential (Get-Credential)"
+                    powershell.exe -Command "Send-MailMessage -To 'lachlanmcdonald2000@gmail.com' -From 'your-email@example.com' -Subject 'Security Scan Complete with Logs' -Body 'Security stage complete, security scan passed successfully. No issues found' -Attachments 'security.log'"
                     '''
                 }
             }
