@@ -1,59 +1,93 @@
 pipeline {
     agent any
+ 
     stages {
         stage('Build') {
             steps {
-                echo "GitHub Commit Received. Building in Process"
-                echo "Building code with Java Maven. The reason for this is because of increased performance and project code building"
+                echo 'Stage 1: Build'
+		echo 'Detail: Build code using build'
+                echo 'Build Automation Tool: Maven ig .......'
             }
         }
-        stage('Test') {
+ 
+        stage('Unit and Integration Tests') {
             steps {
-                echo "In the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
+                echo 'Stage 2: Unit and Integration Tests'
+		echo 'Detail: Run '
+                echo 'Test Automation Tool: Junit 5'
             }
             post {
                 success {
                     emailext(
-                        attachLog: true, 
-                        to: 'lachlanmcdonald2000@gmail.com',
-                        subject: 'Unit and Integration Test: Successful', 
-                        body: 'Stage 2 successfully implemented. Refer Report.'
-                    )
-                }
-            }
+			    	attachLog: true, 
+				to: 'lachlanmcdonald2000@gmail.com',
+				subject: 'Unit and Integration Test: Successful', 
+				body: 'Stage 2 successfully implemented. Refer Report.'
+			    )
+                	}
+                failure {
+                    emailext(
+			    	attachLog: true, 
+				to: 'lachlanmcdonald2000@gmail.com',
+				subject: 'Unit and Integration Test: Failure', 
+				body: 'Stage 2 unsuccessfully implemented. Refer Report.' 
+			    )
+                	}
+            	}
         }
+ 
         stage('Code Analysis') {
             steps {
-                echo "In the code analysis stage I am using SonarQube. The reason for this is because it can perform static code analysis to discover any potential vulnerabilities"
+                echo 'Stage 3: Code Analysis'
+		echo 'Detail: Analyse code '
+                echo 'Code Analysis Tool: SonarQube is used'
             }
         }
+ 
         stage('Security Scan') {
             steps {
-                echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potentially vulnerable dependencies. Demo and email sent"
+                echo 'Stage 4: Security Scan'
+		echo 'Detail: Perform se'
+                echo 'Security Scan Tool: OWASP Security Tool '
             }
             post {
                 success {
                     emailext(
-                        to: 'lachlanmcdonald2000@gmail.com',
-                        subject: 'Security Scan Email',
-                        body: 'Security stage complete, security scan passed successfully. No issues found.'
-                    )
-                }
-            }
+			    	attachLog: true, 
+				to: 'lachlanmcdonald2000@gmail.com',
+				subject: 'Security Scan Test: Successful', 
+				body: 'Stage 4 successfully implemented. Refer Report.' 
+			    )
+                	}
+                failure {
+                    emailext( 
+			    	attachLog: true, 
+				to: 'lachlanmcdonald2000@gmail.com',
+				subject: 'Security Scan Test: Failure', 
+				body: 'Stage 4 unsuccessf.' 
+			    )
+                	}
+            	}
         }
+ 
         stage('Deploy to Staging') {
             steps {
-                echo "Deploy to staging environment requires no tools for this process"
+                echo 'Stage 5: Deploy to Staging'
+		echo 'Detail: Deploy appli'
             }
         }
+ 
         stage('Integration Tests on Staging') {
             steps {
-                echo "For the integration testing stage, we write test cases to ensure different components of the application are working together correctly"
+                echo 'Stage 6: Integration Tests on Staging'
+		echo 'Detail: Conduct i'
             }
         }
+ 
         stage('Deploy to Production') {
             steps {
-                echo "If everything is successful up to this point, we deploy the code to production"
+                echo 'Stage 7: Deploy to Production'
+		echo 'Detail: Deploy appli'
             }
         }
     }
