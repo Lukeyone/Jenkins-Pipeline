@@ -14,11 +14,12 @@ pipeline {
             post {
                 success {
                     emailext(
-                        to: "lachlanmcdonald2000@gmail.com",
-                        subject: "Security Scan Email",
-                        body: "Security Stage complete, security scan passed successfully. No issues found",
-                        attachLog: true
-                    )
+			    	    attachLog: true, 
+        				to: 'lachlanmcdonald2000@gmail.com',
+        				subject: 'Unit and Integration Test: Successful', 
+        				body: 'Stage 2 successfully implemented. Refer Report.'
+        			    )
+                	}
                 }
             }
         }
