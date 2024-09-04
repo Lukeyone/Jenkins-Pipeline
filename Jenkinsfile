@@ -3,56 +3,57 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Github Commit Received. Building in Process"
-                echo "building code with Java maven. The reason for this is because of increased performance and project code building"
+                echo "GitHub Commit Received. Building in Process"
+                echo "Building code with Java Maven. The reason for this is because of increased performance and project code building"
             }
         }
         stage('Test') {
             steps {
-                echo "in the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
+                echo "In the testing stage, I am using the JUnit tester. The reason for this is to test the code function and integrations to ensure the application is working as expected. Demo project here"
             }
             post {
                 success {
                     emailext(
-			attachLog: true, 
-        		to: 'lachlanmcdonald2000@gmail.com',
-        		subject: 'Unit and Integration Test: Successful', 
-        		body: 'Stage 2 successfully implemented. Refer Report.'
-        		)
-                }
+                        attachLog: true, 
+                        to: 'lachlanmcdonald2000@gmail.com',
+                        subject: 'Unit and Integration Test: Successful', 
+                        body: 'Stage 2 successfully implemented. Refer Report.'
+                    )
                 }
             }
         }
         stage('Code Analysis') {
             steps {
-                echo "in the coding analysis stage I am using SonarQube. The reason for this is because it can perform static coding analysis to discover any potential vulnerabilities"
+                echo "In the code analysis stage I am using SonarQube. The reason for this is because it can perform static code analysis to discover any potential vulnerabilities"
             }
         }
         stage('Security Scan') {
             steps {
-                echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potential vulnerable dependencies. Demo and email sent"
+                echo "In the security scanning phase, OWASP Dependency-Check is the tool I will be using because it can perform similar functions to SonarQube but also identify any potentially vulnerable dependencies. Demo and email sent"
             }
             post {
                 success {
-                    mail to: "lachlanmcdonald2000@gmail.com",
-                    subject: "Security Scan Email",
-                    body: "Security Stage stage complete, security scan passed successfully. No issues found",
+                    emailext(
+                        to: 'lachlanmcdonald2000@gmail.com',
+                        subject: 'Security Scan Email',
+                        body: 'Security stage complete, security scan passed successfully. No issues found.'
+                    )
                 }
             }
         }
         stage('Deploy to Staging') {
             steps {
-                echo "deploy to staging environment requires no tools for this process"
+                echo "Deploy to staging environment requires no tools for this process"
             }
         }
         stage('Integration Tests on Staging') {
             steps {
-                echo "for the integration testing stage, we write test cases to ensure different components of the application are working together correctly"
+                echo "For the integration testing stage, we write test cases to ensure different components of the application are working together correctly"
             }
         }
         stage('Deploy to Production') {
             steps {
-                echo "if everything is successful up to this point, we deploy the code to production"
+                echo "If everything is successful up to this point, we deploy the code to production"
             }
         }
     }
