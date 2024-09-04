@@ -35,7 +35,8 @@ pipeline {
                 success {
                     mail to: "lachlanmcdonald2000@gmail.com",
                     subject: "Security Scan Email",
-                    body: "Security Stage stage complete, security scan passed successfully. No issues found"
+                    body: "Security Stage stage complete, security scan passed successfully. No issues found",
+                    attachLog: true
                 }
             }
         }
