@@ -16,6 +16,7 @@ pipeline {
                     mail to: "lachlanmcdonald2000@gmail.com",
                     subject: "Test Email",
                     body: "Test stage complete, Testing passed successfully. All tests passed"
+                    attachLog: true
                 }
             }
         }
