@@ -14,12 +14,12 @@ pipeline {
             post {
                 success {
                     emailext(
-			    	    attachLog: true, 
-        				to: 'lachlanmcdonald2000@gmail.com',
-        				subject: 'Unit and Integration Test: Successful', 
-        				body: 'Stage 2 successfully implemented. Refer Report.'
-        			    )
-                	}
+			attachLog: true, 
+        		to: 'lachlanmcdonald2000@gmail.com',
+        		subject: 'Unit and Integration Test: Successful', 
+        		body: 'Stage 2 successfully implemented. Refer Report.'
+        		)
+                }
                 }
             }
         }
@@ -37,7 +37,6 @@ pipeline {
                     mail to: "lachlanmcdonald2000@gmail.com",
                     subject: "Security Scan Email",
                     body: "Security Stage stage complete, security scan passed successfully. No issues found",
-                    attachLog: true
                 }
             }
         }
